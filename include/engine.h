@@ -35,8 +35,13 @@ private:
     GLFWwindow* window;
 
     VkInstance instance;
+    //Debug
     VkDebugUtilsMessengerEXT debugMessenger;
-
+    // Device
+    VkPhysicalDevice physicalDevice;
+    VkDevice device;
+    //Queue
+    VkQueue graphicsQueue;
     // Vulkan stuff
     void initVulkan();
     void createInstance();
@@ -54,6 +59,8 @@ private:
     //Device stuff?
     void pickPhysicalDevice();
     bool isDeviceSuitable(VkPhysicalDevice device);
+
+    void createLogicalDevice();
 
     //Queue stuff
 
