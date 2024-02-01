@@ -8,14 +8,17 @@
 #include <vector>
 #include <cstring>
 #include <optional>
+#include <set>
 
 struct QueueFamilyIndices
 {
     std::optional<uint32_t> graphicsFamily;
+    std::optional<uint32_t> presentFamily;
 
     bool isComplete()
     {
-        return graphicsFamily.has_value();
+        return graphicsFamily.has_value() && presentFamily.has_value();
+
     }
 };
 
@@ -56,6 +59,10 @@ private:
     void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo);
     void setupDebugMessenger();
 
+    //Surface stuff
+    VkSurfaceKHR surface;
+    void createSurface();
+
     //Device stuff?
     void pickPhysicalDevice();
     bool isDeviceSuitable(VkPhysicalDevice device);
@@ -63,8 +70,8 @@ private:
     void createLogicalDevice();
 
     //Queue stuff
-
     QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+    VkQueue presentQueue;
 
     // Non-Vulkan stuff
     void initWindow();
