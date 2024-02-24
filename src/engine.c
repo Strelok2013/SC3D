@@ -10,8 +10,29 @@ GLFWwindow* initWindow(void)
     return glfwCreateWindow(800,600, "SC3D", NULL, NULL);
 }
 
+void checkExtensionSupport()
+{
+    uint32_t extCount = 0;
+    vkEnumerateInstanceExtensionProperties(NULL, &extCount, NULL);
+    VkExtensionProperties* available_exts = calloc(extCount, sizeof(VkExtensionProperties));
 
+}
 
+void mainLoop(GLFWwindow* win)
+{
+    while(!glfwWindowShouldClose(win))
+    {
+        glfwPollEvents();
+    }
+}
+
+void cleanup(GLFWwindow* win)
+{
+    vkDestroyInstance(instance, NULL);
+
+    glfwDestroyWindow(win);
+    glfwTerminate();
+}
 
 int main(void)
 {
@@ -19,25 +40,8 @@ int main(void)
 
     window = initWindow();
 
-    // Main loop
-    while(!glfwWindowShouldClose(window))
-    {
-        glfwPollEvents();
-    }
-    // Clean up
-    glfwDestroyWindow(window);
-    glfwTerminate();
-    // const char* layers[] = {"VK_LAYER_KHRONOS_validation", "VK_LAYER_KHRONOS_profiles"};
-    //
-    // VkApplicationInfo app_info;
-    // app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    // app_info.pNext = 0; // 0 is the same as nullptr right?
-    //
-    //
-    // VkInstanceCreateInfo inst_create_info;
-    // inst_create_info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-    //
-    //
-    // printf("Test 123 \n");
+    run(window);
+
+    return 0;
 }
 
